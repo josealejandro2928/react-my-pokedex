@@ -27,6 +27,10 @@
   .logo {
     height: 64px;
     margin: 0px 8px;
+
+    @media screen and (max-width:600px) {
+      height: 40px;
+    }
   }
 
   .section {

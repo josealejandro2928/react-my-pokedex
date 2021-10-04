@@ -9,15 +9,10 @@
   align-items: center;
   font-size: 1.5rem;
   border-radius: 16px;
-  position: fixed;
-  top: calc(28px + 80px);
-  width: 1408px;
-  max-width: 96%;
-  z-index: 5;
+  margin-top: 32px;
 }
 
 .filters {
-  position: fixed;
   width: 295px;
   min-height: 600px;
   background-color: $dark1;
@@ -25,10 +20,12 @@
   border-radius: 16px;
   margin-top: 1rem;
   box-sizing: border-box;
+  margin-right: 1rem;
+  max-height: 800px;
 }
 
 .search {
-  margin-left: calc(295px + 1rem);
+  // margin-left: calc(295px + 1rem);
   background-color: $dark1;
   padding: 1rem;
   border-radius: 16px;
@@ -36,6 +33,7 @@
   box-sizing: border-box;
   margin-top: calc(1rem);
   position: relative;
+  width: 100%;
 }
 
 @media screen and (max-width: 800px) {

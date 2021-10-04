@@ -5,26 +5,29 @@ import styles from './Home.module.scss';
 import { getPokemons } from '../../services/pokemon';
 import Loader from '../../components/Loader/Loader';
 import ListGridPokemons from '../../components/ListGridPokemons/ListGridPokemons';
+import FilterSearch from '../../components/FilterSearch/FilterSearch';
 const cx = classNames.bind({ ...styles });
 
 interface FilterParams {
   limit: number;
   offset: number;
-  queryName: string;
-  onlySelected: boolean;
+  query: string;
+  onlyMyList: boolean;
 }
 
 function Home(): JSX.Element {
   const [filterParams, setFilterParams] = useState<FilterParams>({
-    limit: 20,
+    limit: 30,
     offset: 0,
-    queryName: '',
-    onlySelected: false,
+    query: '',
+    onlyMyList: false,
   });
   const [pokemons, setPokemons] = useState<any[]>([]);
 
   const [error, setError] = useState<null | undefined | string | boolean>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [total, setTotal] = useState<number>(1);
+  const [count, setCount] = useState<number>(0);
 
   useEffect(() => {
     setLoading(true);
@@ -36,39 +39,78 @@ function Home(): JSX.Element {
 
   async function search() {
     try {
-      let result: any[] = await getPokemons(filterParams.offset, filterParams.limit, filterParams.queryName);
-      console.log('🚀 ~ file: Home.tsx ~ line 29 ~ search ~ result', result);
-      setPokemons(result);
+      let { result, count: totalData } = await getPokemons(
+        filterParams.offset,
+        filterParams.limit,
+        filterParams.query,
+        filterParams.onlyMyList
+      );
+      if (filterParams.query?.length >= 2 || filterParams.onlyMyList) {
+        setTotal(0);
+        setCount(0);
+        setPokemons(result);
+      } else {
+        setTotal(totalData);
+        let newArray = pokemons.concat(result);
+        setCount(count + newArray.length);
+        setPokemons(newArray);
+      }
     } catch (error: any) {
       setError(error.message);
     }
     setLoading(false);
+  }
+  function onFilterChange(filter: any) {
+    setLoading(true);
+    setPokemons([]);
+    let params = { ...filterParams, query: filter.name };
+    if (filter.name?.length >= 2 || filter.onlyMyList) {
+      params.offset = 0;
+      params.limit = 1000;
+    } else {
+      params.offset = 0;
+      params.limit = 30;
+    }
+    setFilterParams(params);
   }
 
   return (
     <div className="container">
       <div>
         <div className={cx('header')}>Search pokemons</div>
-        <div style={{ height: '100px' }}></div>
       </div>
 
-      <div className={cx('filters')}>Filters</div>
-      <div className={cx('search')}>
-        {error && (
-          <h3>
-            Upps, <strong>{error}</strong>
-          </h3>
-        )}
-        {!error && (
-          <div className={cx('grid')}>
-            <ListGridPokemons pokemons={pokemons}></ListGridPokemons>
-          </div>
-        )}
-        {loading && (
-          <div className={cx('loader')}>
-            <Loader />
-          </div>
-        )}
+      <div style={{ display: 'flex' }}>
+        <div className={cx('filters')}>
+          <h3>Filters</h3>
+          <FilterSearch filterChange={onFilterChange} />
+        </div>
+        <div className={cx('search')}>
+          {error && (
+            <h3 style={{ textAlign: 'center' }}>
+              Upps, <strong>{error}</strong>
+            </h3>
+          )}
+          {!error && !loading && (
+            <>
+              <div className={cx('grid')}>
+                <ListGridPokemons
+                  totalReached={count >= total}
+                  pokemons={pokemons}
+                  onLoadMore={() => {
+                    setFilterParams({ ...filterParams, offset: pokemons.length });
+                  }}
+                ></ListGridPokemons>
+              </div>
+              {!pokemons.length && <h3 style={{ textAlign: 'center' }}>No results with these parameters</h3>}
+            </>
+          )}
+          {loading && (
+            <div className={cx('loader')}>
+              <Loader />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

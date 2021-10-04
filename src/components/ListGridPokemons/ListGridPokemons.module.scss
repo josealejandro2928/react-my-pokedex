@@ -12,6 +12,12 @@
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
+    transition: transform .25s ease;
+
+    &:hover {
+      transform: translateY(-8px);
+      transition: transform .25s ease;
+    }
 
     img {
       margin: auto;

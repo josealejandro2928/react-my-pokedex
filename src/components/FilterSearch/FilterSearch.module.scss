@@ -1,0 +1,32 @@
+@import "../../styles/variables";
+
+input[type="search"] {
+  background-color: $main-background;
+  color: #fff;
+  border-radius: 4px;
+  padding: .5rem 1rem;
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, .5);
+  width: 100%;
+}
+
+label {
+  font-size: .95rem;
+  opacity: .95;
+  margin: 8px 0px;
+  display: inline-block;
+}
+
+.search-btn {
+  padding: .5rem 1rem;
+  color: #fff;
+  background-color: #0969BA;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  &:active {
+    transform: scale(.95);
+  }
+}
