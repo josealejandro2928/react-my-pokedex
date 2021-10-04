@@ -5,6 +5,7 @@
   grid-template-columns: repeat(5, 1fr);
   column-gap: 1rem;
   row-gap: 1rem;
+  cursor: pointer;
 
   .item {
     background-color: $main-background;
@@ -29,6 +30,10 @@
       text-decoration: unset;
       text-transform: capitalize;
       color: #fff;
+      @media screen and (max-width:600px) {
+        font-size: 16px;
+        font-weight: 500;
+      }
 
     }
 
@@ -63,4 +68,8 @@
 
     }
   }
+}
+
+.saved-pokemon {
+  color: rgb(31, 126, 31);
 }

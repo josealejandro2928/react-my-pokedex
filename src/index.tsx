@@ -1,13 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import App from './App/App';
+import App, { AppContextProvider } from './App/App';
 import reportWebVitals from './reportWebVitals';
+import { ModalDataContextProvider } from 'react-hook-modal';
 
+import 'react-hook-modal/dist/index.css';
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <AppContextProvider>
+    <ModalDataContextProvider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </ModalDataContextProvider>
+  </AppContextProvider>,
   document.getElementById('root')
 );
 

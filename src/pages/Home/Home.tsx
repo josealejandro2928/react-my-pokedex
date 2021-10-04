@@ -6,6 +6,7 @@ import { getPokemons } from '../../services/pokemon';
 import Loader from '../../components/Loader/Loader';
 import ListGridPokemons from '../../components/ListGridPokemons/ListGridPokemons';
 import FilterSearch from '../../components/FilterSearch/FilterSearch';
+import { useModal } from 'react-hook-modal';
 const cx = classNames.bind({ ...styles });
 
 interface FilterParams {
@@ -28,6 +29,7 @@ function Home(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(false);
   const [total, setTotal] = useState<number>(1);
   const [count, setCount] = useState<number>(0);
+  const { setComponentToRender } = useModal();
 
   useEffect(() => {
     setLoading(true);
@@ -60,10 +62,11 @@ function Home(): JSX.Element {
     }
     setLoading(false);
   }
+
   function onFilterChange(filter: any) {
     setLoading(true);
     setPokemons([]);
-    let params = { ...filterParams, query: filter.name };
+    let params = { ...filterParams, query: filter.name, onlyMyList: filter.onlyMyList };
     if (filter.name?.length >= 2 || filter.onlyMyList) {
       params.offset = 0;
       params.limit = 1000;
@@ -77,7 +80,20 @@ function Home(): JSX.Element {
   return (
     <div className="container">
       <div>
-        <div className={cx('header')}>Search pokemons</div>
+        <div className={cx('header')}>
+          <span>Search pokemons</span>
+          <i
+            onClick={() => {
+              setComponentToRender(<FilterSearch filterChange={onFilterChange} />, {
+                width: '90vw',
+                height: '80vh',
+                animation: true,
+                title: 'Filters',
+              });
+            }}
+            className={cx('fas fa-search', 'filter-modal')}
+          ></i>
+        </div>
       </div>
 
       <div style={{ display: 'flex' }}>

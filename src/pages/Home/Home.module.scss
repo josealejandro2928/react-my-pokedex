@@ -10,6 +10,9 @@
   font-size: 1.5rem;
   border-radius: 16px;
   margin-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .filters {
@@ -57,4 +60,15 @@
   display: grid;
   place-items: center;
   border-radius: 1rem;
+}
+
+.filter-modal {
+  font-size: 20px;
+  cursor: pointer;
+  display: none;
+
+  @media screen and (max-width:800px) {
+    display: inline-flex;
+
+  }
 }

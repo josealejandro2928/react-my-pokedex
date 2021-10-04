@@ -1,5 +1,7 @@
 
 import axios from 'axios';
+import localforage from 'localforage';
+
 
 export const getPokemons = async (offset: number = 0, limit: number = 20, searchText: string = '', onlyMyList = false): Promise<{ result: any[], count: number }> => {
   if ((!searchText || searchText.length < 2) && !onlyMyList) {
@@ -25,6 +27,11 @@ export const getPokemons = async (offset: number = 0, limit: number = 20, search
   let result: any[] = data.results;
   if (searchText?.length >= 2) {
     result = result.filter((x) => x.name.includes(searchText.trim().toLowerCase()));
+  }
+
+  if (onlyMyList) {
+    let dataCache = JSON.parse((await localforage.getItem('cacheMyList')) || '{}');
+    result = result.filter((x) => dataCache[x.name]);
   }
 
   let allPokemonRequest = result.map((pokemon) => {

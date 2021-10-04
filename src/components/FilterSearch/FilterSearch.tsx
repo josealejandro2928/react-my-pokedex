@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './FilterSearch.module.scss';
+import { useModal } from 'react-hook-modal';
 const cx = classNames.bind({ ...styles });
 
 function FilterSearch({ filterChange = (e: any) => {} }): JSX.Element {
   const [filter, setFilter] = useState({ name: '', onlyMyList: false });
+  const { closeModal } = useModal();
+
   return (
     <div>
       <div style={{ marginBottom: '1rem' }}>
@@ -36,6 +39,7 @@ function FilterSearch({ filterChange = (e: any) => {} }): JSX.Element {
         <button
           onClick={() => {
             filterChange(filter);
+            closeModal();
           }}
           className={cx('search-btn')}
         >
