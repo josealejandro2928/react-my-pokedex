@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './SliderImagesPokemon.module.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -7,7 +7,6 @@ import { SwiperOptions } from 'swiper';
 
 // Import Swiper styles
 import 'swiper/swiper.scss';
-import 'swiper/';
 import 'swiper/components/pagination/pagination.scss';
 import 'swiper/components/navigation/navigation.scss';
 
