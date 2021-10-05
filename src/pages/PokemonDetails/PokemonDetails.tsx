@@ -1,21 +1,23 @@
-import React, { useContext, useEffect, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './PokemonDetails.module.scss';
-import { AppContext } from '../../App/App';
 import { useParams } from 'react-router';
 import { getPokemonById } from '../../services/pokemon';
 import Loader from '../../components/Loader/Loader';
 import SliderImagesPokemon from '../../components/SliderImages/SliderImagesPokemon';
+import usePokedex from '../../hooks/usePokedex';
 const cx = classNames.bind({ ...styles });
 
 function PokemonDetails(): JSX.Element {
-  const { myPokedex } = useContext(AppContext);
   const [error, setError] = useState<null | undefined | string | boolean>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [pokemon, setPokemon] = useState<any>();
   const [images, setImages] = useState<Array<string>>([]);
   const [mainType, setMainType] = useState<string>('');
   const [statusMovesBar, setStatusMovesBar] = useState<string>('collapsible-hide');
+
+  const { tooglePokemon, cacheMyPokedex } = usePokedex();
 
   const { id: pokemonId } = useParams<any>();
 
@@ -80,6 +82,16 @@ function PokemonDetails(): JSX.Element {
     <div className={cx('container')}>
       <div className={cx('pokemon-datails')}>
         <h1 style={{ textTransform: 'capitalize', textAlign: 'center' }}>{pokemon?.name}</h1>
+        {pokemon && (
+          <i
+            onClick={(e) => {
+              e.stopPropagation();
+              tooglePokemon(pokemon);
+            }}
+            style={{ cursor: 'pointer' }}
+            className={cx('fas fa-save', 'btn-toogle-pokedex', cacheMyPokedex[pokemon.name] ? 'saved-pokemon' : '')}
+          ></i>
+        )}
         <div className={cx('images-resume')}>
           <div className={cx('images')}>
             <SliderImagesPokemon images={images} />
@@ -123,7 +135,11 @@ function PokemonDetails(): JSX.Element {
               <span style={{ textTransform: 'capitalize' }}>abilities:</span>
               <div>
                 {pokemon?.abilities?.map((ab: any) => {
-                  return <span key={ab?.ability?.name}>{ab?.ability?.name}, </span>;
+                  return (
+                    <span style={{ textTransform: 'capitalize' }} key={ab?.ability?.name}>
+                      {ab?.ability?.name},{' '}
+                    </span>
+                  );
                 })}
               </div>
             </li>

@@ -12,6 +12,7 @@
   margin-top: 2rem;
   margin-bottom: 2rem;
   padding: 1rem;
+  position: relative;
 
   .types {
     display: flex;
@@ -159,6 +160,17 @@
       }
     }
 
+  }
+
+  .btn-toogle-pokedex {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    font-size: 32px;
+  }
+
+  .saved-pokemon {
+    color: rgb(31, 126, 31);
   }
 
 

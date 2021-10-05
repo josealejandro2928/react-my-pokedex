@@ -61,6 +61,11 @@
   color: white !important;
 }
 
+.dragon {
+  background-color: #e53935 !important;
+  color: white !important;
+}
+
 .collapsible-hide {
   overflow: hidden;
   height: 120px;
@@ -68,8 +73,21 @@
   position: relative;
 }
 
-.collapsible-show{
+.collapsible-show {
   height: auto;
   transition: height .5s ease;
   position: relative;
+}
+
+.global-loader {
+  position: absolute;
+  z-index: 99;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .24);
+  display: grid;
+  place-items: center;
+  border-radius: 1rem;
 }

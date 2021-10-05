@@ -1,12 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './ListGridPokemons.module.scss';
 import InView from 'react-intersection-observer';
 import Loader from '../Loader/Loader';
-import { AppContext } from '../../App/App';
-import toast from 'react-hot-toast';
 import { useHistory } from 'react-router-dom';
+import usePokedex from '../../hooks/usePokedex';
 
 const cx = classNames.bind({ ...styles });
 
@@ -19,33 +18,12 @@ function ListGridPokemons({
   onLoadMore?: Function;
   stopInfiniteScrolling: boolean;
 }): JSX.Element {
-  const { cacheMyPokedex, myPokedex, setMyPokedex, setCacheMyPokedex } = useContext<any>(AppContext);
+  const { tooglePokemon, cacheMyPokedex } = usePokedex();
   const router = useHistory();
 
   useEffect(() => {
     document.body.style.overflowY = 'auto';
   }, [pokemons]);
-
-  function onTooglePokemon(pokemon: any) {
-    if (!cacheMyPokedex[pokemon.name]) {
-      setCacheMyPokedex({ ...cacheMyPokedex, [pokemon.name]: true });
-      setMyPokedex([...myPokedex, pokemon]);
-      toast.success(
-        <p>
-          Pokemon <strong style={{ textTransform: 'capitalize' }}>{pokemon.name}</strong> {' '}
-         added to your pokedex
-        </p>
-      );
-    } else {
-      setCacheMyPokedex({ ...cacheMyPokedex, [pokemon.name]: false });
-      setMyPokedex(myPokedex.filter((el: any) => el.name !== pokemon.name));
-      toast.success(
-        <p>
-          Pokemon <strong style={{ textTransform: 'capitalize' }}>{pokemon.name}</strong> removed from your pokedex
-        </p>
-      );
-    }
-  }
 
   function onGoToProfile(id: any) {
     router.push(`/pokemon/${id}`);
@@ -69,7 +47,7 @@ function ListGridPokemons({
                 <i
                   onClick={(e) => {
                     e.stopPropagation();
-                    onTooglePokemon(pokemon);
+                    tooglePokemon(pokemon);
                   }}
                   style={{ cursor: 'pointer' }}
                   className={cx('fas fa-save', cacheMyPokedex[pokemon.name] ? 'saved-pokemon' : '')}

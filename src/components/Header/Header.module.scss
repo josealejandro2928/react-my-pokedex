@@ -49,8 +49,8 @@
 
   .link {
     display: flex;
-    padding: .5rem 1rem;
-    border-radius: 4px;
+    padding: .25rem 1rem;
+    border-radius: 8px;
     text-decoration: none;
     color: #fff;
     font-size: 1rem;
@@ -60,8 +60,10 @@
     box-sizing: border-box;
 
     &:hover {
-      border: 2px solid $pokemon-blue;
-      color: $pokemon-yellow;
+      border: 3px solid $pokemon-blue;
+      color: $pokemon-blue;
+      background-color: $pokemon-yellow;
+      font-weight: 700;
 
     }
 
@@ -71,13 +73,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: $pokemon-yellow;
-    filter: brightness(1.2);
+    color: $pokemon-blue;
+    background-color: $pokemon-yellow;
     text-decoration: none;
     font-size: 1rem;
-    border-radius: 4px;
-    border: 2px solid $pokemon-blue;
-    font-weight: 500;
+    border-radius: 8px;
+    border: 3px solid $pokemon-blue;
+    font-weight: 700;
     margin: 0px 4px;
   }
 }

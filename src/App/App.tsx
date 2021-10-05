@@ -1,13 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState, lazy, Suspense } from 'react';
 import Layout from '../components/Layout/Layout';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import MyPokedex from '../pages/MyPokedex/MyPokedex';
-import Home from '../pages/Home/Home';
 import { Modal } from 'react-hook-modal';
 import localforage from 'localforage';
 import { Toaster } from 'react-hot-toast';
-import PokemonDetails from '../pages/PokemonDetails/PokemonDetails';
+import Loader from '../components/Loader/Loader';
+
+const Home = lazy(() => import('../pages/Home/Home'));
+const MyPokedex = lazy(() => import('../pages/MyPokedex/MyPokedex'));
+const PokemonDetails = lazy(() => import('../pages/PokemonDetails/PokemonDetails'));
 
 function App() {
   const mount = useRef(false);
@@ -38,17 +40,25 @@ function App() {
     <React.Fragment>
       <Router>
         <Layout>
-          <Switch>
-            <Route path="/my-list">
-              <MyPokedex></MyPokedex>
-            </Route>
-            <Route path="/pokemon/:id">
-              <PokemonDetails />
-            </Route>
-            <Route exact path="/">
-              <Home></Home>
-            </Route>
-          </Switch>
+          <Suspense
+            fallback={
+              <div className="global-loader">
+                <Loader />
+              </div>
+            }
+          >
+            <Switch>
+              <Route path="/my-list">
+                <MyPokedex></MyPokedex>
+              </Route>
+              <Route path="/pokemon/:id">
+                <PokemonDetails />
+              </Route>
+              <Route exact path="/">
+                <Home></Home>
+              </Route>
+            </Switch>
+          </Suspense>
         </Layout>
       </Router>
       <Toaster

@@ -2,7 +2,7 @@ import React from 'react';
 import logo from '../../assets/images/logo.png';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const cx = classNames.bind({ ...styles });
 
@@ -11,8 +11,9 @@ function Header(): JSX.Element {
     <React.Fragment>
       <div className={cx('Header')}>
         <div className={cx('section')} style={{ flex: '1 0 100%', maxWidth: '30%' }}>
-          <img className={cx('logo')} src={logo} alt="logo" />
-          {/* <span className={cx('title')}>Pokedex</span> */}
+          <Link to="/">
+            <img className={cx('logo')} src={logo} alt="logo" />
+          </Link>
         </div>
         <div
           className="section"
