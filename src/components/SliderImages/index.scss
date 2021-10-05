@@ -1,0 +1,32 @@
+.SliderImagesPokemon {
+  .swiper-pagination-bullet-active {
+    opacity: 1;
+    background: yellow !important;
+  }
+
+  @media screen and (max-width:600px) {
+    .swiper-button-next {
+      display: none;
+    }
+
+    .swiper-button-prev {
+      display: none;
+    }
+
+  }
+
+  .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background: #bdbdbd;
+  }
+
+  .swiper-button-next:after {
+    font-size: 32px;
+  }
+
+  .swiper-button-prev:after {
+    font-size: 32px;
+  }
+
+}

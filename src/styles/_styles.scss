@@ -15,3 +15,61 @@
     max-width: 800px;
   }
 }
+
+.water {
+  background-color: #2196f3 !important;
+  color: white !important;
+}
+
+.grass {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
+
+.poison {
+  background-color: #673ab7 !important;
+  color: white !important;
+}
+
+.fire {
+  background-color: #f57c00 !important;
+  color: #000 !important;
+}
+
+.flying {
+  background-color: #8e24aa !important;
+  color: white !important;
+}
+
+.bug {
+  background-color: #9ccc65 !important;
+  color: #000 !important;
+}
+
+.electric {
+  background-color: #ffeb3b !important;
+  color: #000 !important;
+}
+
+.ground {
+  background-color: #795548 !important;
+  color: white !important;
+}
+
+.psychic {
+  background-color: #d81b60 !important;
+  color: white !important;
+}
+
+.collapsible-hide {
+  overflow: hidden;
+  height: 120px;
+  transition: height .5s ease;
+  position: relative;
+}
+
+.collapsible-show{
+  height: auto;
+  transition: height .5s ease;
+  position: relative;
+}

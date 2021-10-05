@@ -29,7 +29,7 @@
     margin: 0px 8px;
 
     @media screen and (max-width:600px) {
-      height: 40px;
+      height: 32px;
     }
   }
 
@@ -60,8 +60,8 @@
     box-sizing: border-box;
 
     &:hover {
-      border: 2px solid #0969BA;
-      color: #FFD300;
+      border: 2px solid $pokemon-blue;
+      color: $pokemon-yellow;
 
     }
 
@@ -71,12 +71,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #FFD300;
+    color: $pokemon-yellow;
     filter: brightness(1.2);
     text-decoration: none;
     font-size: 1rem;
     border-radius: 4px;
-    border: 2px solid #0969BA;
+    border: 2px solid $pokemon-blue;
     font-weight: 500;
     margin: 0px 4px;
   }

@@ -10,7 +10,7 @@ function Header(): JSX.Element {
   return (
     <React.Fragment>
       <div className={cx('Header')}>
-        <div className={cx('section')} style={{ flex: '1 0 100%', maxWidth: '40%' }}>
+        <div className={cx('section')} style={{ flex: '1 0 100%', maxWidth: '30%' }}>
           <img className={cx('logo')} src={logo} alt="logo" />
           {/* <span className={cx('title')}>Pokedex</span> */}
         </div>
@@ -22,7 +22,7 @@ function Header(): JSX.Element {
             Home
           </NavLink>
           <NavLink to="/my-list" className={cx('link')} activeClassName={cx('link-selected')}>
-            My Pokedex
+            My pokedex
           </NavLink>
         </div>
       </div>

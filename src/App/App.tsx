@@ -7,6 +7,7 @@ import Home from '../pages/Home/Home';
 import { Modal } from 'react-hook-modal';
 import localforage from 'localforage';
 import { Toaster } from 'react-hot-toast';
+import PokemonDetails from '../pages/PokemonDetails/PokemonDetails';
 
 function App() {
   const mount = useRef(false);
@@ -40,6 +41,9 @@ function App() {
           <Switch>
             <Route path="/my-list">
               <MyPokedex></MyPokedex>
+            </Route>
+            <Route path="/pokemon/:id">
+              <PokemonDetails />
             </Route>
             <Route exact path="/">
               <Home></Home>

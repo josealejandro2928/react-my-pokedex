@@ -39,6 +39,10 @@ export const getPokemons = async (offset: number = 0, limit: number = 20, search
   })
   result = (await Promise.all(allPokemonRequest)).map(item => item.data);
   return { result, count: data.count };
+}
 
+export const getPokemonById = async (id: string | number) => {
+  let pokemon = (await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)).data;
+  return pokemon;
 
 }
