@@ -11,7 +11,7 @@ function Badge({
   value: number;
 }): JSX.Element {
   return (
-    <div className="Badge" style={{ backgroundColor: backgroundColor, color: color }}>
+    <div data-testid="badge-testid" className="Badge" style={{ backgroundColor: backgroundColor, color: color }}>
       <span>{value}</span>
     </div>
   );

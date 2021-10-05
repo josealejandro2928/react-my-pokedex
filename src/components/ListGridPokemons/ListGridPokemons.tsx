@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './ListGridPokemons.module.scss';
-import InView from 'react-intersection-observer';
+import { InView } from 'react-intersection-observer';
 import Loader from '../Loader/Loader';
 import { useHistory } from 'react-router-dom';
 import usePokedex from '../../hooks/usePokedex';
@@ -31,7 +31,7 @@ function ListGridPokemons({
 
   return (
     <React.Fragment>
-      <div className={cx('list-pokemons')}>
+      <div data-testid="list-grid-pokemons-testid" className={cx('list-pokemons')}>
         {pokemons.map((pokemon) => {
           return (
             <div

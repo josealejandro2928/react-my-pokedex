@@ -16,10 +16,11 @@ function FilterSearch({ filterChange = (e: any) => {} }): JSX.Element {
   }, [filter.onlyMyList]);
 
   return (
-    <div>
+    <div data-testid="filter-search-testid">
       <div style={{ marginBottom: '1rem' }}>
         <label htmlFor="onlyMyList">Name</label>
         <input
+          data-testid="search-input-id"
           value={filter.name}
           onChange={(e) => setFilter({ ...filter, name: e?.target?.value })}
           onKeyPress={(e) => {
@@ -38,6 +39,7 @@ function FilterSearch({ filterChange = (e: any) => {} }): JSX.Element {
         style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', cursor: 'pointer' }}
       >
         <input
+          data-testid="check-input-id"
           checked={filter.onlyMyList}
           onChange={(e) => setFilter({ ...filter, onlyMyList: e?.target?.checked })}
           type="checkbox"
@@ -49,6 +51,7 @@ function FilterSearch({ filterChange = (e: any) => {} }): JSX.Element {
       </div>
       <div style={{ marginBottom: '1rem' }}>
         <button
+          data-testid="search-btn-testid"
           onClick={() => {
             filterChange(filter);
             closeModal();
