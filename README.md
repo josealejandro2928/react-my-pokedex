@@ -2,6 +2,7 @@
 It is a sample project for testing frontend skills using react library.
 Simple React app for searching pokemons
 The app was generated using create-react-app with **typescripts** and **sass**.
+No external css framework was used. Only fontawesome and google font CDN was used in the project.
 
 #### 1- Project structure
 1. **components** : Contains all general application components such as: Loader, ListGridPokemonts, Header, Layout
