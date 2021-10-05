@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './FilterSearch.module.scss';
 import { useModal } from 'react-hook-modal';
+import useEffectUpdate from '../../hooks/useEffectUpdate';
 const cx = classNames.bind({ ...styles });
 
 function FilterSearch({ filterChange = (e: any) => {} }): JSX.Element {
   const [filter, setFilter] = useState({ name: '', onlyMyList: false });
   const { closeModal } = useModal();
+
+  useEffectUpdate(() => {
+    filterChange(filter);
+    closeModal();
+  }, [filter.onlyMyList]);
 
   return (
     <div>
@@ -16,6 +22,12 @@ function FilterSearch({ filterChange = (e: any) => {} }): JSX.Element {
         <input
           value={filter.name}
           onChange={(e) => setFilter({ ...filter, name: e?.target?.value })}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              filterChange(filter);
+              closeModal();
+            }
+          }}
           type="search"
           name="name"
           placeholder="Query more than 2 letters"

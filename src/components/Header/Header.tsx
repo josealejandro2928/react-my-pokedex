@@ -22,7 +22,7 @@ function Header(): JSX.Element {
             Home
           </NavLink>
           <NavLink to="/my-list" className={cx('link')} activeClassName={cx('link-selected')}>
-            My list
+            My Pokedex
           </NavLink>
         </div>
       </div>

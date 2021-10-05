@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import Layout from '../components/Layout/Layout';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import MyList from '../pages/MyList/MyList';
+import MyPokedex from '../pages/MyPokedex/MyPokedex';
 import Home from '../pages/Home/Home';
 import { Modal } from 'react-hook-modal';
 import localforage from 'localforage';
@@ -9,14 +10,14 @@ import { Toaster } from 'react-hot-toast';
 
 function App() {
   const mount = useRef(false);
-  const { cacheMyList, myListPokemon, setCacheMyList, setMyListPokemon } = useContext(AppContext);
+  const { cacheMyPokedex, myPokedex, setCacheMyPokedex, setMyPokedex } = useContext(AppContext);
 
   useEffect(() => {
     (async () => {
-      let data = JSON.parse((await localforage.getItem('cacheMyList')) || '{}');
-      setCacheMyList(data);
-      data = JSON.parse((await localforage.getItem('myListPokemon')) || '[]');
-      setMyListPokemon(data);
+      let data = JSON.parse((await localforage.getItem('cacheMyPokedex')) || '{}');
+      setCacheMyPokedex(data);
+      data = JSON.parse((await localforage.getItem('myPokedex')) || '[]');
+      setMyPokedex(data);
     })();
   }, []);
 
@@ -26,11 +27,11 @@ function App() {
       return;
     }
     (async () => {
-      await localforage.setItem('cacheMyList', JSON.stringify(cacheMyList));
-      await localforage.setItem('myListPokemon', JSON.stringify(myListPokemon));
+      await localforage.setItem('cacheMyPokedex', JSON.stringify(cacheMyPokedex));
+      await localforage.setItem('myPokedex', JSON.stringify(myPokedex));
       mount.current = true;
     })();
-  }, [myListPokemon, cacheMyList]);
+  }, [myPokedex, cacheMyPokedex]);
 
   return (
     <React.Fragment>
@@ -38,7 +39,7 @@ function App() {
         <Layout>
           <Switch>
             <Route path="/my-list">
-              <MyList></MyList>
+              <MyPokedex></MyPokedex>
             </Route>
             <Route exact path="/">
               <Home></Home>
@@ -65,23 +66,23 @@ function App() {
 
 //////GLOBAL CONTEXT DATA ///////
 export const AppContext = React.createContext({
-  myListPokemon: [],
-  setMyListPokemon: (data: any): any => {},
-  cacheMyList: {},
-  setCacheMyList: (data: any): any => {},
+  myPokedex: [],
+  setMyPokedex: (data: any): any => {},
+  cacheMyPokedex: {},
+  setCacheMyPokedex: (data: any): any => {},
 });
 
 export const AppContextProvider = ({ children }: { children: any }) => {
-  const [myListPokemon, setMyListPokemon] = useState([]);
-  const [cacheMyList, setCacheMyList] = useState({});
+  const [myPokedex, setMyPokedex] = useState([]);
+  const [cacheMyPokedex, setCacheMyPokedex] = useState({});
 
   return (
     <AppContext.Provider
       value={{
-        myListPokemon: myListPokemon,
-        setMyListPokemon: setMyListPokemon as any,
-        cacheMyList: cacheMyList,
-        setCacheMyList: setCacheMyList as any,
+        myPokedex: myPokedex,
+        setMyPokedex: setMyPokedex as any,
+        cacheMyPokedex: cacheMyPokedex,
+        setCacheMyPokedex: setCacheMyPokedex as any,
       }}
     >
       {children}

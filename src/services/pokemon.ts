@@ -30,7 +30,7 @@ export const getPokemons = async (offset: number = 0, limit: number = 20, search
   }
 
   if (onlyMyList) {
-    let dataCache = JSON.parse((await localforage.getItem('cacheMyList')) || '{}');
+    let dataCache = JSON.parse((await localforage.getItem('cacheMyPokedex')) || '{}');
     result = result.filter((x) => dataCache[x.name]);
   }
 

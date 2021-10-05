@@ -27,8 +27,7 @@
   max-height: 800px;
 }
 
-.search {
-  // margin-left: calc(295px + 1rem);
+.result {
   background-color: $dark1;
   padding: 1rem;
   border-radius: 16px;
@@ -42,10 +41,6 @@
 @media screen and (max-width: 800px) {
   .filters {
     display: none;
-  }
-
-  .search {
-    margin-left: 0px;
   }
 }
 

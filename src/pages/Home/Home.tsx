@@ -79,29 +79,26 @@ function Home(): JSX.Element {
 
   return (
     <div className="container">
-      <div>
-        <div className={cx('header')}>
-          <span>Search pokemons</span>
-          <i
-            onClick={() => {
-              setComponentToRender(<FilterSearch filterChange={onFilterChange} />, {
-                width: '90vw',
-                height: '80vh',
-                animation: true,
-                title: 'Filters',
-              });
-            }}
-            className={cx('fas fa-search', 'filter-modal')}
-          ></i>
-        </div>
+      <div className={cx('header')}>
+        <span>Search pokemons</span>
+        <i
+          onClick={() => {
+            setComponentToRender(<FilterSearch filterChange={onFilterChange} />, {
+              width: '90vw',
+              height: '80vh',
+              animation: true,
+              title: 'Filters',
+            });
+          }}
+          className={cx('fas fa-search', 'filter-modal')}
+        ></i>
       </div>
-
       <div style={{ display: 'flex' }}>
         <div className={cx('filters')}>
           <h3>Filters</h3>
           <FilterSearch filterChange={onFilterChange} />
         </div>
-        <div className={cx('search')}>
+        <div className={cx('result')}>
           {error && (
             <h3 style={{ textAlign: 'center' }}>
               Upps, <strong>{error}</strong>
@@ -109,15 +106,13 @@ function Home(): JSX.Element {
           )}
           {!error && !loading && (
             <>
-              <div className={cx('grid')}>
-                <ListGridPokemons
-                  totalReached={count >= total}
-                  pokemons={pokemons}
-                  onLoadMore={() => {
-                    setFilterParams({ ...filterParams, offset: pokemons.length });
-                  }}
-                ></ListGridPokemons>
-              </div>
+              <ListGridPokemons
+                stopInfiniteScrolling={count >= total}
+                pokemons={pokemons}
+                onLoadMore={() => {
+                  setFilterParams({ ...filterParams, offset: pokemons.length });
+                }}
+              ></ListGridPokemons>
               {!pokemons.length && <h3 style={{ textAlign: 'center' }}>No results with these parameters</h3>}
             </>
           )}

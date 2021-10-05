@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './ListGridPokemons.module.scss';
-import { Link } from 'react-router-dom';
 import InView from 'react-intersection-observer';
 import Loader from '../Loader/Loader';
 import { AppContext } from '../../App/App';
@@ -14,24 +13,37 @@ const cx = classNames.bind({ ...styles });
 function ListGridPokemons({
   pokemons = [],
   onLoadMore = () => {},
-  totalReached = false,
+  stopInfiniteScrolling = false,
 }: {
   pokemons: any[];
-  onLoadMore: Function;
-  totalReached: boolean;
+  onLoadMore?: Function;
+  stopInfiniteScrolling: boolean;
 }): JSX.Element {
-  const { cacheMyList, myListPokemon, setMyListPokemon, setCacheMyList } = useContext<any>(AppContext);
+  const { cacheMyPokedex, myPokedex, setMyPokedex, setCacheMyPokedex } = useContext<any>(AppContext);
   const router = useHistory();
 
+  useEffect(() => {
+    document.body.style.overflowY = 'auto';
+  }, [pokemons]);
+
   function onTooglePokemon(pokemon: any) {
-    if (!(cacheMyList[pokemon.name])) {
-      setCacheMyList({ ...cacheMyList, [pokemon.name]: true });
-      setMyListPokemon([...myListPokemon, pokemon]);
-      toast.success(`Pokemon ${pokemon.name} added to your pokedex`);
+    if (!cacheMyPokedex[pokemon.name]) {
+      setCacheMyPokedex({ ...cacheMyPokedex, [pokemon.name]: true });
+      setMyPokedex([...myPokedex, pokemon]);
+      toast.success(
+        <p>
+          Pokemon <strong style={{ textTransform: 'capitalize' }}>{pokemon.name}</strong> {' '}
+         added to your pokedex
+        </p>
+      );
     } else {
-      setCacheMyList({ ...cacheMyList, [pokemon.name]: false });
-      setMyListPokemon(myListPokemon.filter((el: any) => el.name !== pokemon.name));
-      toast.success(`Pokemon ${pokemon.name} removed from your pokedex`);
+      setCacheMyPokedex({ ...cacheMyPokedex, [pokemon.name]: false });
+      setMyPokedex(myPokedex.filter((el: any) => el.name !== pokemon.name));
+      toast.success(
+        <p>
+          Pokemon <strong style={{ textTransform: 'capitalize' }}>{pokemon.name}</strong> removed from your pokedex
+        </p>
+      );
     }
   }
 
@@ -60,7 +72,7 @@ function ListGridPokemons({
                     onTooglePokemon(pokemon);
                   }}
                   style={{ cursor: 'pointer' }}
-                  className={cx('fas fa-save', cacheMyList[pokemon.name] ? 'saved-pokemon' : '')}
+                  className={cx('fas fa-save', cacheMyPokedex[pokemon.name] ? 'saved-pokemon' : '')}
                 ></i>
               </div>
             </div>
@@ -72,12 +84,13 @@ function ListGridPokemons({
         onChange={(inView) => {
           if (inView) {
             onLoadMore(true);
+            document.body.style.overflowY = 'hidden';
           }
         }}
       >
         {({ ref }) => (
           <div style={{ height: '90px', display: 'grid', placeItems: 'center' }}>
-            {!totalReached && (
+            {!stopInfiniteScrolling && (
               <div ref={ref}>
                 <Loader />
               </div>

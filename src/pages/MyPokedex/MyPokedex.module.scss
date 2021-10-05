@@ -1,0 +1,27 @@
+@import "../../styles/variables";
+
+.header {
+  padding: 1rem 1.5rem;
+  min-height: 64px;
+  background-color: $dark1;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  border-radius: 16px;
+  margin-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result {
+  background-color: $dark1;
+  padding: 1rem;
+  border-radius: 16px;
+  min-height: 600px;
+  box-sizing: border-box;
+  margin-top: calc(1rem);
+  position: relative;
+  width: 100%;
+}
