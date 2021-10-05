@@ -62,7 +62,7 @@ function App() {
         </Layout>
       </Router>
       <Toaster
-        position="top-right"
+        position="bottom-right"
         reverseOrder={false}
         toastOptions={{
           duration: 2000,

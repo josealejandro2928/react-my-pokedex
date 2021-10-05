@@ -3,10 +3,13 @@ import logo from '../../assets/images/logo.png';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import { Link, NavLink } from 'react-router-dom';
+import Badge from '../Badge/Badge';
+import usePokedex from '../../hooks/usePokedex';
 
 const cx = classNames.bind({ ...styles });
 
 function Header(): JSX.Element {
+  const { myPokedex } = usePokedex();
   return (
     <React.Fragment>
       <div className={cx('Header')}>
@@ -24,6 +27,7 @@ function Header(): JSX.Element {
           </NavLink>
           <NavLink to="/my-list" className={cx('link')} activeClassName={cx('link-selected')}>
             My pokedex
+            {myPokedex.length > 0 && <Badge value={myPokedex.length} />}
           </NavLink>
         </div>
       </div>
