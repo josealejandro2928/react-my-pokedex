@@ -83,12 +83,19 @@ function Home(): JSX.Element {
         <span>Search pokemons</span>
         <i
           onClick={() => {
-            setComponentToRender(<FilterSearch filterChange={onFilterChange} />, {
-              width: '90vw',
-              height: '80vh',
-              animation: true,
-              title: 'Filters',
-            });
+            setComponentToRender(
+              <FilterSearch
+                onlyMyListProp={filterParams.onlyMyList}
+                nameProp={filterParams.query}
+                filterChange={onFilterChange}
+              />,
+              {
+                width: '90vw',
+                height: '80vh',
+                animation: true,
+                title: 'Filters',
+              }
+            );
           }}
           className={cx('fas fa-search', 'filter-modal')}
         ></i>
@@ -96,7 +103,11 @@ function Home(): JSX.Element {
       <div style={{ display: 'flex' }}>
         <div className={cx('filters')}>
           <h3>Filters</h3>
-          <FilterSearch filterChange={onFilterChange} />
+          <FilterSearch
+            onlyMyListProp={filterParams.onlyMyList}
+            nameProp={filterParams.query}
+            filterChange={onFilterChange}
+          />
         </div>
         <div className={cx('result')}>
           {error && (

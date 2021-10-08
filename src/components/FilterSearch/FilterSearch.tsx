@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './FilterSearch.module.scss';
@@ -6,14 +7,17 @@ import { useModal } from 'react-hook-modal';
 import useEffectUpdate from '../../hooks/useEffectUpdate';
 const cx = classNames.bind({ ...styles });
 
-function FilterSearch({ filterChange = (e: any) => {} }): JSX.Element {
-  const [filter, setFilter] = useState({ name: '', onlyMyList: false });
+function FilterSearch({ onlyMyListProp = false, nameProp = '', filterChange = (e: any) => {} }): JSX.Element {
+  const [filter, setFilter] = useState({ name: nameProp, onlyMyList: onlyMyListProp });
   const { closeModal } = useModal();
 
   useEffectUpdate(() => {
     filterChange(filter);
-    closeModal();
   }, [filter.onlyMyList]);
+
+  useEffect(() => {
+    setFilter({ ...filter, onlyMyList: onlyMyListProp || false, name: nameProp || '' });
+  }, [onlyMyListProp, onlyMyListProp]);
 
   return (
     <div data-testid="filter-search-testid">
